@@ -7,3 +7,5 @@ companies = [
     'PETR4.SA',
     'GGBR4.SA'
 ]
+
+elasticsearch_address = 'http://localhost:9200'
