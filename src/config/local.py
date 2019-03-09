@@ -1,3 +1,8 @@
+
+# company_code, from_epoch, to_epoch, crumb
+yahoo_historical_url = \
+    'https://query1.finance.yahoo.com/v7/finance/download/{}?period1={}&period2={}&interval=1d&events=history&crumb={}'
+
 yahoo_url_for_polling = "https://query1.finance.yahoo.com/v7/finance/quote?formatted=true&crumb=U4e8eDQi%2FyI&" \
                         "lang=en-US&region=US&symbols=" \
                         "{}" \
@@ -72,3 +77,4 @@ companies = ["ABEV3.SA",
 elasticsearch_address = 'http://localhost:9200'
 
 chunk_size = 10
+
