@@ -70,3 +70,5 @@ companies = ["ABEV3.SA",
              "WEGE3.SA"]
 
 elasticsearch_address = 'http://localhost:9200'
+
+chunk_size = 10
