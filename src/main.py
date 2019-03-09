@@ -10,7 +10,8 @@ def main():
     # do realtime importer
     # list(map(lambda chunk: yahoo_poller.realtime_chunk_importer(chunk), companies_chunks))
 
-    historical_importer.import_historical_data(companies_chunks)
+    result = historical_importer.import_historical_data(companies_chunks)
+    print('ae')
 
 
 if __name__ == '__main__':

@@ -1,3 +1,6 @@
+data_local_storage_filepath = '/home/zem/labs/trading-project/rt-persistence'
+elasticsearch_address = 'http://localhost:9200'
+
 
 # company_code, from_epoch, to_epoch, crumb
 yahoo_historical_url = \
@@ -7,6 +10,9 @@ yahoo_url_for_polling = "https://query1.finance.yahoo.com/v7/finance/quote?forma
                         "lang=en-US&region=US&symbols=" \
                         "{}" \
                         "&fields=messageBoardId%2ClongName%2CshortName%2CmarketCap%2CunderlyingSymbol%2CunderlyingExchangeSymbol%2CheadSymbolAsString%2CregularMarketPrice%2CregularMarketChange%2CregularMarketChangePercent%2CregularMarketVolume%2Cuuid%2CregularMarketOpen%2CfiftyTwoWeekLow%2CfiftyTwoWeekHigh&corsDomain=finance.yahoo.com"
+
+
+chunk_size = 10
 
 companies = ["ABEV3.SA",
              "B3SA3.SA",
@@ -73,8 +79,3 @@ companies = ["ABEV3.SA",
              "VIVT4.SA",
              "VVAR3.SA",
              "WEGE3.SA"]
-
-elasticsearch_address = 'http://localhost:9200'
-
-chunk_size = 10
-

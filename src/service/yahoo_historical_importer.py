@@ -2,18 +2,35 @@ import src.config.local as config
 import requests
 
 
-def import_a_company(company_code, from_epoch, to_epoch, crumb, cookie):
+def retrieve_company_historical_data_from_yahoo(company_code, from_epoch, to_epoch, crumb, cookie):
     yahoo_historical_url = config.yahoo_historical_url.format(company_code, from_epoch, to_epoch, crumb)
     headers = {'cookie': cookie}
     response = requests.get(yahoo_historical_url, headers=headers).content.decode('utf-8')
 
-    print(response)
+    return {
+        'company_code': company_code,
+        'historical_data': response
+    }
+
+
+def persist_on_disk_a_company(company):
+    f = open('{}{}.csv'.format(config.data_local_storage_filepath, company['company_code']), "w+")
+    f.write(company['historical_data'])
+    f.close()
+
+    return company['company_code'], True
 
 
 def import_chunks(companies, from_epoch, to_epoch, crumb, cookie):
+    historical_data = list(map(
+        lambda company: retrieve_company_historical_data_from_yahoo(company, from_epoch, to_epoch, crumb, cookie),
+        companies
+    ))
+
     return list(map(
-        lambda company: import_a_company(company, from_epoch, to_epoch, crumb, cookie),
-        companies))
+        lambda company: persist_on_disk_a_company(company),
+        historical_data
+    ))
 
 
 def import_historical_data(companies_chunks):
@@ -29,4 +46,5 @@ def import_historical_data(companies_chunks):
 
     return list(map(
         lambda x: import_chunks(x, from_epoch, to_epoch, crumb, cookie),
-        companies_chunks))
+        companies_chunks
+    ))
