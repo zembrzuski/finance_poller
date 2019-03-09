@@ -4,7 +4,7 @@ import src.repository.company_repository as company_repository
 import src.config.local as config
 
 
-def process_chunk(companies):
+def realtime_chunk_importer(companies):
     companies_array = ','.join(companies)
     companies_retrieved = requests.get(config.yahoo_url_for_polling.format(companies_array)).json()
 
