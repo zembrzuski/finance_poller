@@ -10,19 +10,19 @@ def main():
     # do realtime importer
     # list(map(lambda chunk: yahoo_poller.realtime_chunk_importer(chunk), companies_chunks))
 
-    # do historical_import
-    company = 'PETR4.SA'
-    from_epoch = None
-    to_epoch = None
-
     print('visit this site, please: \n https://finance.yahoo.com/quote/PETR4.SA?p=PETR4.SA&.tsrc=fin-srch')
     print('click historical data')
     print('click apply')
     print('click download data')
     print('at network inspection console, look for PETR4.SA?period1=XXXXXXXXXXXXXXXX')
+    from_epoch = 1262311200
+    to_epoch = 1893463200
     crumb = input('then, type the crumb property on the request address. It is something like U4e8eDQi/yI\n')
     cookie = input('the, type the cookie parameter (look on the headers of the request)\n')
-    historical_importer.import_historical_data(company, from_epoch, to_epoch, crumb, cookie)
+
+    list(map(
+        lambda companies: historical_importer.import_chunks_historical(companies, from_epoch, to_epoch, crumb, cookie),
+        companies_chunks))
 
     print('finished')
 
