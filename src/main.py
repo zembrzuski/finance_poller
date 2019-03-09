@@ -1,23 +1,17 @@
 import requests
 import src.config.config as config
-import src.service.helper.datetime_helper as datetime_helper
-
-
-
-def process_a_company(company):
-    utc_datetime = datetime_helper.convert_from_epoch_to_utcdatetime(company['regularMarketTime']['raw'])
-    datetime_formatted = datetime_helper.utcdatetime_to_elasticsearch_format(utc_datetime)
-    print(datetime_formatted)
+import src.service.helper.company_converter as company_converter
 
 
 def main():
     companies_array = ','.join(config.companies)
-    resp = requests.get(config.yahoo_url_for_polling.format(companies_array)).json()
+    companies_retrieved = requests.get(config.yahoo_url_for_polling.format(companies_array)).json()
 
-    for company in resp['quoteResponse']['result']:
-        process_a_company(company)
+    companies_to_persist = list(map(
+        lambda x: company_converter.convert_company_from_yahoo_to_elasticsearch_entity(x),
+        companies_retrieved['quoteResponse']['result']))
 
-    print(resp)
+    print(companies_retrieved)
 
 
 if __name__ == '__main__':
