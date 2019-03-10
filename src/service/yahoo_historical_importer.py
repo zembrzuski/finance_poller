@@ -1,4 +1,5 @@
 import src.config.local as config
+import src.repository.filesystem_helper as filesystem_helper
 import requests
 
 
@@ -14,14 +15,6 @@ def retrieve_company_historical_data_from_yahoo(company_code, from_epoch, to_epo
     }
 
 
-def persist_on_disk_a_company(company):
-    f = open('{}/{}.csv'.format(config.data_local_storage_filepath, company['company_code']), "w+")
-    f.write(company['historical_data'])
-    f.close()
-
-    return company['company_code'], True
-
-
 def import_chunks(companies, from_epoch, to_epoch, crumb, cookie):
     historical_data = list(map(
         lambda company: retrieve_company_historical_data_from_yahoo(company, from_epoch, to_epoch, crumb, cookie),
@@ -29,7 +22,7 @@ def import_chunks(companies, from_epoch, to_epoch, crumb, cookie):
     ))
 
     return list(map(
-        lambda company: persist_on_disk_a_company(company),
+        lambda company: filesystem_helper.persist_on_disk_a_company(company),
         historical_data
     ))
 

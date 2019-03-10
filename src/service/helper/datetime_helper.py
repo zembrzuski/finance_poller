@@ -14,3 +14,7 @@ def convert_from_epoch_to_utcdatetime(raw):
 
 def utcdatetime_to_elasticsearch_format(utc_datetime):
     return utc_datetime.strftime("%Y-%m-%dT%H:%M:%S.000")
+
+
+def parse_date_to_datetime(date):
+    return datetime.datetime.strptime(date, "%Y-%m-%d")
