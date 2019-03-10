@@ -3,6 +3,7 @@ import src.service.yahoo_realtime_poller as yahoo_poller
 import src.service.yahoo_historical_importer as historical_importer
 import src.service.real_time_polling as real_time_polling
 
+
 def main():
     companies_chunks = [
         config.companies[x:x + config.chunk_size]

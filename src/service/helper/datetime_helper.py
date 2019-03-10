@@ -18,3 +18,11 @@ def utcdatetime_to_elasticsearch_format(utc_datetime):
 
 def parse_date_to_datetime(date):
     return datetime.datetime.strptime(date, "%Y-%m-%d")
+
+
+def today_date():
+    return datetime.datetime.now()
+
+
+def format_today_date(d):
+    return d.strftime("%Y-%m-%d")
