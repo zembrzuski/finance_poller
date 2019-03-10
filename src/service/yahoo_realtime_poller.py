@@ -6,6 +6,7 @@ import src.config.local as config
 
 def realtime_chunk_importer(companies):
     companies_array = ','.join(companies)
+    print(companies_array)
     companies_retrieved = requests.get(config.yahoo_url_for_polling.format(companies_array)).json()
 
     companies_to_persist = list(map(

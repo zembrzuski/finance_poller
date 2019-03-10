@@ -10,7 +10,15 @@ def main():
     # do realtime importer
     # list(map(lambda chunk: yahoo_poller.realtime_chunk_importer(chunk), companies_chunks))
 
-    result = historical_importer.import_historical_data(companies_chunks)
+    # result = historical_importer.import_historical_data(companies_chunks)
+
+    # my near real time processing.
+    # for a given company, say PETR4.SA
+    # read historical data from disk
+    # append today's price
+    # compute indicators
+    # apply rule to buy or sell
+
     print('ae')
 
 

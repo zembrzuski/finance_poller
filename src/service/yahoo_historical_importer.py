@@ -3,6 +3,7 @@ import requests
 
 
 def retrieve_company_historical_data_from_yahoo(company_code, from_epoch, to_epoch, crumb, cookie):
+    print('retrieving ' + company_code)
     yahoo_historical_url = config.yahoo_historical_url.format(company_code, from_epoch, to_epoch, crumb)
     headers = {'cookie': cookie}
     response = requests.get(yahoo_historical_url, headers=headers).content.decode('utf-8')
@@ -14,7 +15,7 @@ def retrieve_company_historical_data_from_yahoo(company_code, from_epoch, to_epo
 
 
 def persist_on_disk_a_company(company):
-    f = open('{}{}.csv'.format(config.data_local_storage_filepath, company['company_code']), "w+")
+    f = open('{}/{}.csv'.format(config.data_local_storage_filepath, company['company_code']), "w+")
     f.write(company['historical_data'])
     f.close()
 
