@@ -41,7 +41,4 @@ def do_polling(company_code):
 
     dates, prices = get_beautiful_data(company_code, today_string, today_datetime)
 
-    # append today's price
-    # compute indicators
-    # apply rule to buy or sell
     print(company_code)
