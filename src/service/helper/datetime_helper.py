@@ -24,5 +24,5 @@ def today_date():
     return datetime.datetime.now()
 
 
-def format_today_date(d):
+def format_date(d):
     return d.strftime("%Y-%m-%d")
