@@ -2,6 +2,7 @@ import src.repository.filesystem_helper as filesystem_helper
 import src.service.helper.datetime_helper as date_helper
 import src.repository.company_repository as company_repository
 import numpy as np
+import src.strategy.macd_strategy as macd_strategy
 from talib import MACD, RSI
 
 def get_historical_data(company_code, today_string):
@@ -42,5 +43,7 @@ def do_polling(company_code):
     dates, prices = get_beautiful_data(company_code, today_string, today_datetime)
     macd, macdsignal, macdhist = MACD(prices, fastperiod=12, slowperiod=26, signalperiod=9)
     rsi = RSI(prices, timeperiod=14)
+
+    macd_strategy.compute_macd_strategy(company_code, macdsignal)
 
     print(company_code)
