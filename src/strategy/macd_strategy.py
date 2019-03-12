@@ -1,5 +1,6 @@
 
 def compute_macd_strategy(company_code, macdsignal):
+
     # verifico se estou comprado
     # se estou comprado, verifico signal
     #   se está positivo, mantenho

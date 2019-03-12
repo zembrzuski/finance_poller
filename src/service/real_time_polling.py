@@ -3,7 +3,9 @@ import src.service.helper.datetime_helper as date_helper
 import src.repository.company_repository as company_repository
 import numpy as np
 import src.strategy.macd_strategy as macd_strategy
+import src.service.helper.trade_service as trade_service
 from talib import MACD, RSI
+
 
 def get_historical_data(company_code, today_string):
     historical_data = filesystem_helper.load_historical_data(company_code)
@@ -31,7 +33,7 @@ def enrich_historical_data_with_today_price(dates, prices, company_code, today_s
 
 def get_beautiful_data(company_code, today_string, today_datetime):
     dates, prices = get_historical_data(company_code, today_string)
-    dates, prices = enrich_historical_data_with_today_price(dates, prices, company_code, today_string, today_datetime)
+    # dates, prices = enrich_historical_data_with_today_price(dates, prices, company_code, today_string, today_datetime)
 
     return dates, prices
 
@@ -43,6 +45,8 @@ def do_polling(company_code):
     dates, prices = get_beautiful_data(company_code, today_string, today_datetime)
     macd, macdsignal, macdhist = MACD(prices, fastperiod=12, slowperiod=26, signalperiod=9)
     rsi = RSI(prices, timeperiod=14)
+
+    current_position = trade_service.retrieve_position_for_a_company(company_code)
 
     macd_strategy.compute_macd_strategy(company_code, macdsignal)
 
