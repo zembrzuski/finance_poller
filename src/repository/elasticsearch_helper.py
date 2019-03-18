@@ -19,12 +19,12 @@ def retrieve_all_by_index_and_group(index, type_es):
     return requests.get(persistence_address).json()['hits']['hits']
 
 
-def retrieve_max_element_given_a_field(index, type_es, field):
-    query_address = '{}/{}/{}/_search'.format(config.elasticsearch_address, index, type_es)
+def retrieve_last_order_for_a_company_and_strategy(strategy):
+    query_address = '{}/{}/{}/_search'.format(config.elasticsearch_address, 'orders', strategy)
 
     query = {
         "query": {"match_all": {}},
-        "sort": {field: {"order": "desc"}},
+        "sort": {"date": {"order": "desc"}},
         "size": 1
     }
 

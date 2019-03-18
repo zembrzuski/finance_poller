@@ -1,8 +1,8 @@
 import src.repository.company_repository as company_repository
 
 
-def retrieve_position_for_a_company(company_code):
-    last_order_1 = company_repository.retrieve_last_order(company_code)
+def retrieve_position_for_a_company_and_a_strategy(company_code, strategy):
+    last_order_1 = company_repository.retrieve_last_order(company_code, strategy)
 
     if len(last_order_1) == 0:
         return 'NOT_POSITIONED'

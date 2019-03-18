@@ -24,9 +24,3 @@ def retrieve_all_orders(company_code):
         index=company_code.replace('.', '').lower(),
         type_es='orders'
     )
-
-
-def retrieve_last_order(company_code):
-    resp = elasticsearch_helper.retrieve_max_element_given_a_field(company_code, 'orders', 'date')
-
-    return resp['hits']['hits']
