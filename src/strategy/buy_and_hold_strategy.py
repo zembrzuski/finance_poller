@@ -1,4 +1,5 @@
 
+
 def execute(company_code):
 
     # verifico se estou comprado

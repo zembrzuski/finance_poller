@@ -3,6 +3,10 @@ import src.service.helper.datetime_helper as date_helper
 import src.repository.company_repository as company_repository
 import numpy as np
 import src.strategy.macd_strategy as macd_strategy
+import src.strategy.buy_and_hold_strategy as buy_and_hold_strategy
+import src.strategy.rsi_strategy as rsi_strategy
+import src.strategy.random_strategy as random_strategy
+import src.strategy.macd_and_rsi_strategy as macd_and_rsi_strategy
 import src.service.helper.trade_service as trade_service
 from talib import MACD, RSI
 
@@ -42,14 +46,13 @@ def get_beautiful_data(company_code):
 
 
 def do_polling(company_code):
-    # TODO nem sempre preciso de todo o histórico. muitas vezes, como no caso do macd, só preciso dos últimos dados.
     dates, prices = get_beautiful_data(company_code)
 
-    random_strategy(company_code)
-    buy_and_hold_strategy(company_code)
-    macd_strategy(company_code)
-    rsi_strategy(company_code)
-    macd_and_rsi_strategy(company_code)
+    random_strategy.execute(company_code)
+    buy_and_hold_strategy.execute(company_code)
+    macd_strategy.execute(company_code)
+    rsi_strategy.execute(company_code)
+    macd_and_rsi_strategy.execute(company_code)
 
     macd, macdsignal, macdhist = MACD(prices, fastperiod=12, slowperiod=26, signalperiod=9)
     rsi = RSI(prices, timeperiod=14)
