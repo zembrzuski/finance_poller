@@ -31,7 +31,10 @@ def enrich_historical_data_with_today_price(dates, prices, company_code, today_s
     return dates_appended, prices_appended
 
 
-def get_beautiful_data(company_code, today_string, today_datetime):
+def get_beautiful_data(company_code):
+    today_datetime = date_helper.today_date()
+    today_string = date_helper.format_date(today_datetime)
+
     dates, prices = get_historical_data(company_code, today_string)
     dates, prices = enrich_historical_data_with_today_price(dates, prices, company_code, today_string, today_datetime)
 
@@ -39,10 +42,15 @@ def get_beautiful_data(company_code, today_string, today_datetime):
 
 
 def do_polling(company_code):
-    today_datetime = date_helper.today_date()
-    today_string = date_helper.format_date(today_datetime)
+    # TODO nem sempre preciso de todo o histórico. muitas vezes, como no caso do macd, só preciso dos últimos dados.
+    dates, prices = get_beautiful_data(company_code)
 
-    dates, prices = get_beautiful_data(company_code, today_string, today_datetime)
+    random_strategy(company_code)
+    buy_and_hold_strategy(company_code)
+    macd_strategy(company_code)
+    rsi_strategy(company_code)
+    macd_and_rsi_strategy(company_code)
+
     macd, macdsignal, macdhist = MACD(prices, fastperiod=12, slowperiod=26, signalperiod=9)
     rsi = RSI(prices, timeperiod=14)
 
