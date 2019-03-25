@@ -1,9 +1,15 @@
 import pandas
 import src.config.local as config
+import os
 
 
 def persist_on_disk_a_company(company):
-    f = open('{}/{}.csv'.format(config.data_local_storage_filepath, company['company_code']), "w+")
+    file_path = '{}/{}.csv'.format(config.data_local_storage_filepath, company['company_code'])
+
+    if os.path.isfile(file_path):
+        os.remove(file_path)
+
+    f = open(file_path, "w+")
     f.write(company['historical_data'])
     f.close()
 

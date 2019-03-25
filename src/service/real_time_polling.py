@@ -33,7 +33,7 @@ def enrich_historical_data_with_today_price(dates, prices, company_code, today_s
 
 def get_beautiful_data(company_code, today_string, today_datetime):
     dates, prices = get_historical_data(company_code, today_string)
-    # dates, prices = enrich_historical_data_with_today_price(dates, prices, company_code, today_string, today_datetime)
+    dates, prices = enrich_historical_data_with_today_price(dates, prices, company_code, today_string, today_datetime)
 
     return dates, prices
 
