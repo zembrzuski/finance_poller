@@ -1,5 +1,7 @@
+from talib import MACD
 
-def execute(company_code):
+def execute(company_code, dates, prices):
+    macd, macdsignal, macdhist = MACD(prices, fastperiod=12, slowperiod=26, signalperiod=9)
 
     # verifico se estou comprado
     # se estou comprado, verifico signal

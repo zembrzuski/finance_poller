@@ -1,6 +1,6 @@
 
 
-def execute(company_code):
+def execute(company_code, dates, prices):
 
     # verifico se estou comprado
     # se estou comprado, verifico signal

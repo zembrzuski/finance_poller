@@ -46,19 +46,14 @@ def get_beautiful_data(company_code):
 
 
 def do_polling(company_code):
+    print('processing {}'.format(company_code))
+
     dates, prices = get_beautiful_data(company_code)
 
-    random_strategy.execute(company_code)
-    buy_and_hold_strategy.execute(company_code)
-    macd_strategy.execute(company_code)
-    rsi_strategy.execute(company_code)
-    macd_and_rsi_strategy.execute(company_code)
+    random_strategy.execute(company_code, dates, prices)
+    buy_and_hold_strategy.execute(company_code, dates, prices)
+    macd_strategy.execute(company_code, dates, prices)
+    rsi_strategy.execute(company_code, dates, prices)
+    macd_and_rsi_strategy.execute(company_code, dates, prices)
 
-    macd, macdsignal, macdhist = MACD(prices, fastperiod=12, slowperiod=26, signalperiod=9)
-    rsi = RSI(prices, timeperiod=14)
-
-    current_position = trade_service.retrieve_position_for_a_company(company_code)
-
-    macd_strategy.compute_macd_strategy(company_code, macdsignal)
-
-    print(company_code)
+    print('finished {}'.format(company_code))

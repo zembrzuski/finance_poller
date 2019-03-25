@@ -1,6 +1,8 @@
+from talib import MACD, RSI
 
 
-def execute(company_code):
+def execute(company_code, dates, prices):
+    rsi = RSI(prices, timeperiod=14)
 
     # verifico se estou comprado
     # se estou comprado, verifico signal
