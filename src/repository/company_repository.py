@@ -1,4 +1,5 @@
 import src.repository.elasticsearch_helper as elasticsearch_helper
+import src.service.helper.datetime_helper as datetime_helper
 
 
 def persist_company_quote_on_elasticsearch(company):
@@ -9,6 +10,16 @@ def persist_company_quote_on_elasticsearch(company):
         id_es=company['datetime'][0:10])
 
     return response.status_code, company['symbol']
+
+
+def persist_an_order(company, strategy, price, date, order):
+    return elasticsearch_helper.post_an_order(
+        company_slug(company),
+        strategy,
+        price,
+        datetime_helper.utcdatetime_to_elasticsearch_format(date),
+        order
+    )
 
 
 def retrieve_company_quote_on_elasticsearch(company_code, today):

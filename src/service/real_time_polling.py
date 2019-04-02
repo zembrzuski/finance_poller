@@ -27,6 +27,8 @@ def enrich_historical_data_with_today_price(dates, prices, company_code, today_s
     today_information = company_repository.retrieve_company_quote_on_elasticsearch(company_code, today_string)
     today_price = float(today_information['regularMarketPrice']['raw'])
 
+    regularMarketTime
+
     prices_appended = np.append(prices, today_price)
     dates_appended = np.append(dates, today_datetime)
 
