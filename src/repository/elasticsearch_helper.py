@@ -19,13 +19,34 @@ def retrieve_all_by_index_and_group(index, type_es):
     return requests.get(persistence_address).json()['hits']['hits']
 
 
-def retrieve_last_order_for_a_company_and_strategy(strategy):
-    query_address = '{}/{}/{}/_search'.format(config.elasticsearch_address, 'orders', strategy)
+def retrieve_last_order_for_a_company_and_strategy(company, strategy):
+    query_address = '{}/{}/{}/_search'.format(config.elasticsearch_address, 'orders', 'orders')
 
     query = {
-        "query": {"match_all": {}},
+        "query": {
+            "bool": {
+                "must": [
+                    {"term": {"company": company}},
+                    {"term": {"strategy": strategy}}
+                ]
+            }
+        },
         "sort": {"date": {"order": "desc"}},
         "size": 1
     }
 
     return requests.post(query_address, json=query)
+
+
+def post_an_order(company, strategy, price, date, order):
+    query_address = '{}/{}/{}'.format(config.elasticsearch_address, 'orders', 'orders')
+
+    payload = {
+        'company': company,
+        'strategy': strategy,
+        'price': price,
+        'date': date,
+        'order': order
+    }
+
+    return requests.post(query_address, json=payload)

@@ -14,7 +14,7 @@ def realtime_chunk_importer(companies):
         companies_retrieved['quoteResponse']['result']))
 
     persistence_result = list(map(
-        lambda x: company_repository.persist_company_on_elasticsearch(x),
+        lambda x: company_repository.persist_company_quote_on_elasticsearch(x),
         companies_to_persist))
 
     print(persistence_result)

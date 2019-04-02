@@ -1,9 +1,9 @@
 import src.repository.elasticsearch_helper as elasticsearch_helper
 
 
-def persist_company_on_elasticsearch(company):
+def persist_company_quote_on_elasticsearch(company):
     response = elasticsearch_helper.persist(
-        index=company['symbol'].replace('.', '').lower(),
+        index=company_slug(company['symbol']),
         type_es='quotes',
         payload=company,
         id_es=company['datetime'][0:10])
@@ -13,14 +13,19 @@ def persist_company_on_elasticsearch(company):
 
 def retrieve_company_quote_on_elasticsearch(company_code, today):
     return elasticsearch_helper.retrieve_by_id(
-        index=company_code.replace('.', '').lower(),
+        index=company_slug(company_code),
         type_es='quotes',
         id_es=today
     )
 
 
-def retrieve_all_orders(company_code):
-    return elasticsearch_helper.retrieve_all_by_index_and_group(
-        index=company_code.replace('.', '').lower(),
-        type_es='orders'
-    )
+def retrieve_last_order_for_company_and_strategy(company, strategy):
+    last_order = elasticsearch_helper.retrieve_last_order_for_a_company_and_strategy(company_slug(company), strategy)
+
+    hits = last_order.json()['hits']['hits']
+
+    return hits[0]['_source'] if len(hits) > 0 else None
+
+
+def company_slug(company):
+    return company.replace('.', '').lower()

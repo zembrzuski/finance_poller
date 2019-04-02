@@ -7,8 +7,6 @@ import src.strategy.buy_and_hold_strategy as buy_and_hold_strategy
 import src.strategy.rsi_strategy as rsi_strategy
 import src.strategy.random_strategy as random_strategy
 import src.strategy.macd_and_rsi_strategy as macd_and_rsi_strategy
-import src.service.helper.trade_service as trade_service
-from talib import MACD, RSI
 
 
 def get_historical_data(company_code, today_string):
@@ -50,10 +48,10 @@ def do_polling(company_code):
 
     dates, prices = get_beautiful_data(company_code)
 
-    random_strategy.execute(company_code, dates, prices)
-    buy_and_hold_strategy.execute(company_code, dates, prices)
+    # random_strategy.execute(company_code, dates, prices)
+    # buy_and_hold_strategy.execute(company_code, dates, prices)
     macd_strategy.execute(company_code, dates, prices)
-    rsi_strategy.execute(company_code, dates, prices)
-    macd_and_rsi_strategy.execute(company_code, dates, prices)
+    # rsi_strategy.execute(company_code, dates, prices)
+    # macd_and_rsi_strategy.execute(company_code, dates, prices)
 
     print('finished {}'.format(company_code))

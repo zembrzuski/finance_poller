@@ -2,11 +2,9 @@ import src.repository.company_repository as company_repository
 
 
 def retrieve_position_for_a_company_and_a_strategy(company_code, strategy):
-    last_order_1 = company_repository.retrieve_last_order(company_code, strategy)
+    last_order = company_repository.retrieve_last_order_for_company_and_strategy(company_code, strategy)
 
-    if len(last_order_1) == 0:
+    if not last_order:
         return 'NOT_POSITIONED'
 
-    last_order = last_order_1[0]
-
-    return 'NOT_POSITIONED' if last_order['ORDER'] == 'SELL' else 'HAVE_BOUGHT'
+    return 'NOT_POSITIONED' if last_order['order'] == 'VENDA' else 'HAVE_BOUGHT'
