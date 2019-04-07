@@ -25,7 +25,9 @@ def main():
     """
     # essa aqui é a lógica em si.
     """
-    real_time_polling.do_polling('PETR4.SA')
+    for chunk in companies_chunks:
+        for company in chunk:
+            real_time_polling.do_polling(company)
 
     print('ae')
 

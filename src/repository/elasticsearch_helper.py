@@ -11,7 +11,12 @@ def persist(index, type_es, payload, id_es):
 
 def retrieve_by_id(index, type_es, id_es):
     persistence_address = '{}/{}/{}/{}'.format(config.elasticsearch_address, index, type_es, id_es)
-    return requests.get(persistence_address).json()['_source']
+    response = requests.get(persistence_address)
+
+    if response.status_code == 404:
+        return None
+
+    return response.json()['_source']
 
 
 def retrieve_all_by_index_and_group(index, type_es):

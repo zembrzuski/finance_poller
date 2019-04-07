@@ -23,11 +23,10 @@ def get_historical_data(company_code, today_string):
     return dates, prices
 
 
-def enrich_historical_data_with_today_price(dates, prices, company_code, today_string, today_datetime):
-    today_information = company_repository.retrieve_company_quote_on_elasticsearch(company_code, today_string)
+def enrich_historical_data_with_today_price(dates, prices, today_datetime, today_information):
     today_price = float(today_information['regularMarketPrice']['raw'])
 
-    regularMarketTime
+    # regularMarketTime
 
     prices_appended = np.append(prices, today_price)
     dates_appended = np.append(dates, today_datetime)
@@ -40,7 +39,11 @@ def get_beautiful_data(company_code):
     today_string = date_helper.format_date(today_datetime)
 
     dates, prices = get_historical_data(company_code, today_string)
-    dates, prices = enrich_historical_data_with_today_price(dates, prices, company_code, today_string, today_datetime)
+
+    today_information = company_repository.retrieve_company_quote_on_elasticsearch(company_code, today_string)
+
+    if today_information:
+        dates, prices = enrich_historical_data_with_today_price(dates, prices, today_datetime, today_information)
 
     return dates, prices
 

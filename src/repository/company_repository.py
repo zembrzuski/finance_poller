@@ -33,6 +33,9 @@ def retrieve_company_quote_on_elasticsearch(company_code, today):
 def retrieve_last_order_for_company_and_strategy(company, strategy):
     last_order = elasticsearch_helper.retrieve_last_order_for_a_company_and_strategy(company_slug(company), strategy)
 
+    if last_order.status_code == 404:
+        return None
+
     hits = last_order.json()['hits']['hits']
 
     return hits[0]['_source'] if len(hits) > 0 else None

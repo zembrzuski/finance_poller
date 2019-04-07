@@ -10,7 +10,9 @@ def execute(company_code, dates, prices):
         if position == 'HAVE_BOUGHT' \
         else action_for_not_positioned_strategy(macdsignal[-1])
 
-    trade_service.execute_order(company_code, dates[-1], prices[-1], order, 'macd')
+    if order:
+        some_info = 'macd ' + str(macdsignal[-1])
+        trade_service.execute_order(company_code, dates[-1], prices[-1], order, 'macd', some_info)
 
 
 def action_for_bought_strategy(signal):
