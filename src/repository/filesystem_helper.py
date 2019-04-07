@@ -20,3 +20,10 @@ def load_historical_data(company_code):
     csv = pandas.read_csv('{}/{}.csv'.format(config.data_local_storage_filepath, company_code).format(company_code))
     return csv.dropna()
 
+
+def persist_on_disk_an_order(order):
+    file_path = '{}/ALL_ORDERS.txt'.format(config.data_local_storage_filepath)
+
+    f = open(file_path, "a")
+    f.write(order + '\n')
+    f.close()
