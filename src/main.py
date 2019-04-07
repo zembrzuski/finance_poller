@@ -1,3 +1,5 @@
+from time import sleep
+
 import src.config.local as config
 import src.service.yahoo_realtime_poller as yahoo_poller
 import src.service.yahoo_historical_importer as historical_importer
@@ -13,23 +15,21 @@ def main():
     # do import historical data
     # devo rodar esse cara em todas as manhãs, antes de iniciar o pregão.
     """
-    # result = historical_importer.import_historical_data(companies_chunks)
+    historical_importer.import_historical_data(companies_chunks)
 
     """
     # do realtime importer
     # fazer isso periodicamente ao longo do dia. tipo de 10 em 10 minutos. apos executar isso,
     # estou apto a fazer minha bl
     """
-    # list(map(lambda chunk: yahoo_poller.realtime_chunk_importer(chunk), companies_chunks))
+    while True:
+        list(map(lambda chunk: yahoo_poller.realtime_chunk_importer(chunk), companies_chunks))
 
-    """
-    # essa aqui é a lógica em si.
-    """
-    for chunk in companies_chunks:
-        for company in chunk:
-            real_time_polling.do_polling(company)
+        for chunk in companies_chunks:
+            for company in chunk:
+                real_time_polling.do_polling(company)
 
-    print('ae')
+        sleep(60*5)
 
 
 if __name__ == '__main__':
