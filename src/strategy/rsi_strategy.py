@@ -7,8 +7,6 @@ def execute(company_code, dates, prices):
 
     position = trade_service.retrieve_position_for_a_company_and_a_strategy(company_code, 'rsi')
 
-    print(rsi[-1])
-
     order = action_for_bought_strategy(rsi[-1]) \
         if position == 'HAVE_BOUGHT' \
         else action_for_not_positioned_strategy(rsi[-1])

@@ -57,6 +57,6 @@ def do_polling(company_code):
     # buy_and_hold_strategy.execute(company_code, dates, prices)
     macd_strategy.execute(company_code, dates, prices)
     rsi_strategy.execute(company_code, dates, prices)
-    # macd_and_rsi_strategy.execute(company_code, dates, prices)
+    macd_and_rsi_strategy.execute(company_code, dates, prices)
 
     print('finished {}'.format(company_code))
